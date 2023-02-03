@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use Response;
 use Session;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\Product;
+use App\Models\ProductType;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -16,18 +20,20 @@ class ProductController extends Controller
     }
 
     public function create() {
-        return view('pages.product.create');
+        $data['types'] = ProductType::get();
+        return view('pages.product.create', $data);
     }
 
     public function edit($productId = null) {
-        $data['products'] = Product::find($productId)->first();
+        $data['types'] = ProductType::get();
+        $data['product'] = Product::find($productId);
         return view('pages.product.update', $data);
     }
 
     public function store(Request $request) {
         try{
-            $file_name = time() . '.' . request()->photo->getClientOriginalExtension();
-            request()->photo->move(public_path('img/product'), $file_name);
+            $file_name = time() . '.' . $request->photo->getClientOriginalExtension();
+            $request->photo->move(public_path('img/product'), $file_name);
     
             $product = new Product;
             $product->type_id = $request->type;
@@ -36,7 +42,7 @@ class ProductController extends Controller
             $product->stock = $request->stock;
             $product->price_buy = $request->price_buy;
             $product->price_sell = $request->price_sell;
-            $product->photo = $photo;
+            $product->photo = $file_name;
             
             if ($product->save()) {
                 return Response::json([
@@ -59,30 +65,32 @@ class ProductController extends Controller
 
     public function update(Request $request) {
         try{
-            $photo = $request->photo_old;
-            if($request->photo != '')
-            {
-                $photo = time() . '.' . request()->photo->getClientOriginalExtension();
-                request()->photo->move(public_path('img/product'), $photo);
+            if($request->photo != '') {
+                $photo = time() . '.' . $request->photo->getClientOriginalExtension();
+                $request->photo->move(public_path('img/product'), $request->photo);
             }
 
             $product = Product::find($request->id);
             $product->name = $request->name;
+            $product->type_id = $request->type;
             $product->description = $request->description;
             $product->stock = $request->stock;
             $product->price_buy = $request->price_buy;
             $product->price_sell = $request->price_sell;
-            $product->photo = $photo;
+
+            if($request->photo != '') {
+                $product->photo = $photo;
+            }
             
             if ($product->save()) {
                 return Response::json([
                     'error' => false, 
-                    'msg' => 'Data berhasil disimpan'
+                    'msg' => 'Data berhasil diperbarui'
                 ]);
             } else {
                 return Response::json([
                     'error' => true, 
-                    'msg' => 'Data gagal disimpan'
+                    'msg' => 'Data gagal diperbarui'
                 ]);
             }
         }catch(\Exception $e){
@@ -91,5 +99,21 @@ class ProductController extends Controller
                 'msg' => $e
             ]);
         }
+    }
+
+    public function delete(Request $request) {
+        $product = Product::find($request->id);
+        $file = Storage::delete(public_path() . '/img/product/' . $product->photo);
+        if($product->delete()) {
+            return Response::json([
+                'error' => false, 
+                'msg' => 'Data berhasil dihapus'
+            ]);
+        } else {
+            return Response::json([
+                'error' => true, 
+                'msg' => 'Data gagal dihapus'
+            ]);
+        };
     }
 }

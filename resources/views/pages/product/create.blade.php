@@ -15,48 +15,49 @@
             <small class="text-muted float-end"><span class="text-danger">*</span> Required</small>
         </div> --}}
         <div class="card-body">
-            <form>
+            <form class="form-product-add">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="col-form-label">Nama Barang</label>
-                            <input type="text" class="form-control" placeholder="Ciki Taro" />
+                            <input type="text" name="name" class="form-control" placeholder="Ciki Taro" required/>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="col-form-label">Tipe Barang</label>
-                                <select class="form-select">
-                                    <option selected>Pilih Tipe</option>
-                                    <option value="1">Makanan Ringan</option>
-                                    <option value="2">Minuman</option>
-                                    <option value="3">Alat Mandi</option>
+                                <select class="form-select" name="type" required>
+                                    <option value="" selected>Pilih Tipe</option>
+                                    @foreach($types as $data)
+                                        <option value="{{ $data->id }}">{{ $data->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <label class="col-form-label">Stok Barang</label>
-                                <input type="text" class="form-control" placeholder="Ciki Taro" />
+                                <input type="number" name="stock" class="form-control" value="0" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="col-form-label">Harga Jual</label>
-                                <input type="text" class="form-control" placeholder="Ciki Taro" />
+                                <input type="text" name="price_sell" class="form-control" value="0" required/>
                             </div>
                             <div class="col-md-6">
                                 <label class="col-form-label">Harga Beli</label>
-                                <input type="text" class="form-control" placeholder="Ciki Taro" />
+                                <input type="text" name="price_buy" class="form-control" value="0" required/>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="col-form-label">Deskripsi</label>
-                            <textarea class="form-control" rows="5"></textarea>
+                            <textarea class="form-control" name="description" rows="5" required></textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="col-form-label">Photo</label>
-                            <div style="width: 100%; height: 400px; object-fit: cover; overflow: hidden;">
-                                <img style="width: 100%; height: 100%; object-fit: cover;" src="https://images.bangunteknologi.com/DSC00072.jpg" alt="" srcset="">
+                            <input class="form-control input-image" name="photo" type="file" required/>
+                            <div class="mt-3" style="width: 100%; height: 400px; object-fit: cover; overflow: hidden;">
+                                <img class="preview-image" style="width: 100%; height: 100%; object-fit: cover;" src="https://images.bangunteknologi.com/DSC00072.jpg">
                             </div>
                         </div>
                     </div>

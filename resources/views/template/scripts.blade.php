@@ -14,6 +14,7 @@
 
 <script src="{{ asset('assets/js/datatables-bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
+<script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
 
 <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
 <script src="{{ asset('assets/js/apps.js') }}"></script>

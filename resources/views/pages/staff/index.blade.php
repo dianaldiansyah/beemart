@@ -34,10 +34,10 @@
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ url('/staff/edit/1') }}">
+                                        <a class="dropdown-item" href="{{ url('/staff/edit/'.$staff->id) }}">
                                             <i class="bx bx-edit-alt me-1"></i> Edit
                                         </a>
-                                        <a class="dropdown-item" href="javascript:void(0);">
+                                        <a class="dropdown-item" onclick="deleteStaff({{$staff->id}})">
                                             <i class="bx bx-trash me-1"></i> Delete
                                         </a>
                                     </div>

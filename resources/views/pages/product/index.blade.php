@@ -14,13 +14,13 @@
             <thead>
                 <tr>
                     <th height="50">No</th>
+                    <th height="50">Photo</th>
                     <th height="50">Name</th>
                     <th height="50">Description</th>
                     <th height="50">Type</th>
                     <th height="50">Stock</th>
                     <th height="50">Buy Price</th>
                     <th height="50">Sell Price</th>
-                    <th height="50">Photo</th>
                     <th height="50">Actions</th>
                 </tr>
             </thead>
@@ -29,23 +29,25 @@
                     @foreach($data as $key => $product)
                         <tr>
                             <td>{{ $key + 1 }}</td>
+                            <td>
+                                <img src="{{ asset('img/product/'.$product->photo) }}" height="40">
+                            </td>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->description }}</td>
                             <td>{{ $product->type_id }}</td>
                             <td>{{ $product->stock }}</td>
                             <td>{{ $product->price_buy }}</td>
                             <td>{{ $product->price_sell }}</td>
-                            <td>{{ $product->photo }}</td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ url('/product/edit/1') }}">
+                                        <a class="dropdown-item" href="{{ url('/product/edit/'.$product->id) }}">
                                             <i class="bx bx-edit-alt me-1"></i> Edit
                                         </a>
-                                        <a class="dropdown-item" href="javascript:void(0);">
+                                        <a class="dropdown-item" onclick="deleteProduct({{$product->id}})">
                                             <i class="bx bx-trash me-1"></i> Delete
                                         </a>
                                     </div>

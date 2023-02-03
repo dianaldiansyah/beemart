@@ -15,27 +15,27 @@
             <small class="text-muted float-end"><span class="text-danger">*</span> Required</small>
         </div> --}}
         <div class="card-body">
-            <form>
+            <form class="form-customer-add">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="col-form-label">Nama Pembeli</label>
-                            <input type="text" class="form-control" placeholder="Ciki Taro" />
+                            <input type="text" class="form-control" name="name" placeholder="Aceng" required/>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="col-form-label">Tanggal Lahir</label>
-                                <input class="form-control" type="date" value="2021-06-18" id="html5-date-input" />
+                                <input class="form-control" type="date" name="birth_date" id="html5-date-input" required/>
                             </div>
                             <div class="col-md-6">
                                 <label class="col-form-label">Gender</label>
                                 <div class="d-flex align-items-center">
                                     <div class="form-check">
-                                        <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio1"/>
+                                        <input name="gender" class="form-check-input" type="radio" value="m" id="defaultRadio1"/>
                                         <label class="form-check-label" for="defaultRadio1"> Pria </label>
                                     </div>
                                     <div class="form-check" style="margin-left: 16px;">
-                                        <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio2"/>
+                                        <input name="gender" class="form-check-input" type="radio" value="f" id="defaultRadio2"/>
                                         <label class="form-check-label" for="defaultRadio2"> Wanita </label>
                                     </div>
                                 </div>
@@ -43,28 +43,29 @@
                         </div>
                         <div class="mb-3">
                             <label class="col-form-label">Username</label>
-                            <input type="text" class="form-control" placeholder="dianaldiansyah" />
+                            <input type="text" class="form-control" name="username" placeholder="acengisback" required/>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="col-form-label">Password</label>
-                                <input type="password" class="form-control"/>
+                                <input type="password" class="form-control" name="password" required/>
                             </div>
                             <div class="col-md-6">
                                 <label class="col-form-label">Retype-Password</label>
-                                <input type="password" class="form-control"/>
+                                <input type="password" class="form-control" name="confirm_password" required/>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="col-form-label">Alamat</label>
-                            <textarea class="form-control" rows="2"></textarea>
+                            <textarea class="form-control" rows="2" name="address" required></textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="col-form-label">ID Card</label>
+                            <input class="form-control input-image" name="id_card" type="file" required/>
                             <div style="width: 100%; height: 400px; object-fit: cover; overflow: hidden;">
-                                <img style="width: 100%; height: 100%; object-fit: cover;" src="https://images.bangunteknologi.com/DSC00072.jpg" alt="" srcset="">
+                                <img class="preview-image" style="width: 100%; height: 100%; object-fit: cover;" src="https://images.bangunteknologi.com/DSC00072.jpg">
                             </div>
                         </div>
                     </div>

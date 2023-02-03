@@ -15,22 +15,23 @@
             <small class="text-muted float-end"><span class="text-danger">*</span> Required</small>
         </div> --}}
         <div class="card-body">
-            <form>
+            <form class="form-staff-update">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="col-form-label">Nama Staff</label>
-                            <input type="text" class="form-control" placeholder="Dian Aldiansyah" />
+                            <input type="text" class="form-control" name="name" placeholder="Dian Aldiansyah" value="{{ $staff->name }}" required/>
+                            <input type="hidden" name="id" value="{{ $staff->id }}">
                         </div>
                         <div class="mb-3">
                             <label class="col-form-label">Gender</label>
                             <div class="d-flex align-items-center">
                                 <div class="form-check">
-                                    <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio1"/>
+                                    <input name="gender" class="form-check-input" type="radio" value="m" id="defaultRadio1" {{ ($staff->gender == 'm') ? 'checked' : '' }}/>
                                     <label class="form-check-label" for="defaultRadio1"> Pria </label>
                                 </div>
                                 <div class="form-check" style="margin-left: 16px;">
-                                    <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio2"/>
+                                    <input name="gender" class="form-check-input" type="radio" value="f" id="defaultRadio2" {{ ($staff->gender == 'f') ? 'checked' : '' }}/>
                                     <label class="form-check-label" for="defaultRadio2"> Wanita </label>
                                 </div>
                             </div>
@@ -39,16 +40,16 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="col-form-label">Username</label>
-                            <input type="text" class="form-control" placeholder="dianaldiansyah" />
+                            <input type="text" class="form-control" name="username" placeholder="acengisback" value="{{ $staff->username }}" required/>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="col-form-label">Password</label>
-                                <input type="password" class="form-control"/>
+                                <input type="password" class="form-control" name="password"/>
                             </div>
                             <div class="col-md-6">
                                 <label class="col-form-label">Retype-Password</label>
-                                <input type="password" class="form-control"/>
+                                <input type="password" class="form-control" name="confirm_password"/>
                             </div>
                         </div>
                     </div>

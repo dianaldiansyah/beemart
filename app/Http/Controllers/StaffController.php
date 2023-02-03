@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use Response;
 use Session;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\Staff;
 use Illuminate\Http\Request;
 
@@ -19,20 +22,17 @@ class StaffController extends Controller
     }
 
     public function edit($staffId = null) {
-        $data['staff'] = Staff::find($staffId)->first();
+        $data['staff'] = Staff::find($staffId);
         return view('pages.staff.update', $data);
     }
 
     public function store(Request $request) {
         try{
-    
             $staff = new Staff;
-            $staff->type_id = $request->type;
             $staff->name = $request->name;
-            $staff->description = $request->description;
-            $staff->stock = $request->stock;
-            $staff->price_buy = $request->price_buy;
-            $staff->price_sell = $request->price_sell;
+            $staff->gender = $request->gender;
+            $staff->username = $request->username;
+            $staff->password = bcrypt($request->password);
             
             if ($staff->save()) {
                 return Response::json([
@@ -48,37 +48,53 @@ class StaffController extends Controller
         }catch(\Exception $e){
             return Response::json([
                 'error' => true, 
-                'msg' => $e
+                'msg' => $e->getMessage()
             ]);
         }
     }
 
     public function update(Request $request) {
         try{
-
             $staff = Staff::find($request->id);
             $staff->name = $request->name;
-            $staff->description = $request->description;
-            $staff->stock = $request->stock;
-            $staff->price_buy = $request->price_buy;
-            $staff->price_sell = $request->price_sell;
+            $staff->gender = $request->gender;
+            $staff->username = $request->username;
+
+            if ($request->password != '') {
+                $staff->password = bcrypt($request->password);
+            }
             
             if ($staff->save()) {
                 return Response::json([
                     'error' => false, 
-                    'msg' => 'Data berhasil disimpan'
+                    'msg' => 'Data berhasil diperbarui'
                 ]);
             } else {
                 return Response::json([
                     'error' => true, 
-                    'msg' => 'Data gagal disimpan'
+                    'msg' => 'Data gagal diperbarui'
                 ]);
             }
         }catch(\Exception $e){
             return Response::json([
                 'error' => true, 
-                'msg' => $e
+                'msg' => $e->getMessage()
             ]);
         }
+    }
+
+    public function delete(Request $request) {
+        $staff = Staff::find($request->id);
+        if($staff->delete()) {
+            return Response::json([
+                'error' => false, 
+                'msg' => 'Data berhasil dihapus'
+            ]);
+        } else {
+            return Response::json([
+                'error' => true, 
+                'msg' => 'Data gagal dihapus'
+            ]);
+        };
     }
 }
